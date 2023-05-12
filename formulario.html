@@ -16,13 +16,14 @@
 
     <main>
         <div class="container-fluid">
-        <form action="./guardar.php">
+        <form action="guardar.php" method="POST" id="form-create">
             <div class="row">
                 <div class="mb-3 col-3 form-group">
                     <label class="form-label" for="telefono">Fecha de atención</label>
-                    <input class="form-control" type="date" id="fecha"><br>
+                    <input class="form-control" type="date" id="fecha" name="fecha"><br>
+
                     <label class="form-label" for="coordinacion">Coordinación</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" name="coordinacion">
                         <option value="1">Tijuana</option>
                         <option value="2">Hermosillo</option>
                         <option value="3">Reynosa</option>
@@ -38,22 +39,22 @@
                     </select><br>
 
                     <label class="form-label" for="usuario">Usuario</label>
-                    <input class="form-control" type="text" id="nombre" placeholder="Nombre completo"><br>
+                    <input class="form-control" type="text" name="usuario" placeholder="Nombre completo"><br>
 
                     <label class="form-label" for="telefono">Telefono</label>
                     <input class="form-control" type="text" id="telefono"><br>
 
                     <label class="form-label" for="correoelectronico">Correo Electrónico</label>
-                    <input class="form-control" type="email" id="email"><br>
+                    <input class="form-control" type="email" name="email"><br>
 
                 </div>
 
                 <div class="mb-3 col-3 form-group">
                     <label class="form-label" for="foliosiniestro">Número de siniestro</label>
-                    <input class="form-control" type="text" id="siniestro"><br>
+                    <input class="form-control" type="text" name="siniestro"><br>
 
                     <label class="form-label" for="coordinacion">Tipo de atención</label>
-                    <select class="form-select" aria-label="Default select example" id="tipoatencion">
+                    <select class="form-select" aria-label="Default select example" name="tipoatencion">
                         <option value="1" selected>Reconsideración</option>
                         <option value="2">Asesoría</option>
                         <option value="3">Consulta</option>
@@ -80,7 +81,7 @@
                     </div><br>
 
                     <label class="form-label" for="conclusion">Conclusiones y/o observaciones</label>
-                    <textarea class="form-control" ></textarea>
+                    <textarea class="form-control" name="observaciones"></textarea>
                     <br>
                     
                 </div>
