@@ -1,6 +1,7 @@
 <?php
-// Comprobamos si recibimos datos por POST
+include_once './conexionBD.php';
 
+// Comprobamos si recibimos datos por POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recogemos variables
     $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
@@ -17,34 +18,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $observaciones = (isset($_POST['observaciones'])) ? $_POST['observaciones'] : '';
     
     // Variables
-    $hostDB = '127.0.0.1';
+    $hostDB = 'localhost';
     $nombreDB = 'atenciones';
-    $usuarioDB = 'root';
-    $contrasenyaDB = '';
+    $usuarioDB = 'user';
+    $contrasenyaDB = 'password';
     
     // Conecta con base de datos
     $hostPDO = "mysql:host=$hostDB;dbname=$nombreDB;";
+    $consulta =  "INSERT INTO atenciones (usuario, fecha, coordinacion, rc, telefono, 
+        email, tipo_atencion, asunto, observaciones) VALUES (
+        '$usuario', '$fecha', '$coordinacion', '$rc', '$telefono',
+        '$mail', '$tipoatencion', '$asunto', '$observaciones);";
+
+    // $consulta = "INSERT INTO usuarios (usuario, telefono, mail, rol, password) VALUES ('$usuario', '$telefono', '$mail', '$rol', '$pw') ";		
     $miPDO = new PDO($hostPDO, $usuarioDB, $contrasenyaDB);
+
+    $objeto = new Conexion();
+    $conexion = $objeto->Conectar();
     
     // Prepara INSERT
-    $miInsert = $miPDO->prepare(
-        'INSERT INTO atenciones (usuario, fecha, coordinacion, rc, telefono, email, tipo_atencion, asunto, observaciones) VALUES (
-                                :usuario, :fecha, :coordinacion, :rc, :telefono, :email, :tipoatencion; :asunto, :observaciones)' );
+    //$miInsert = $miPDO->prepare($consulta);
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute(); 
     
     // Ejecuta INSERT con los datos
-    $miInsert->execute(
-        array(
-            'usuario' => $usuario,
-            'fecha' => $mysqldate,
-            'coordinacion' => $coordinacion,
-            'rc' => $rc, 
-            'telefono' => $telefono, 
-            'email' => $mail,
-            'tipo_atencion' => $tipoatencion,
-            'asunto' => $asunto,
-            'observaciones' => $observaciones,
-        )
-    );
+    //$miInsert->execute(); 
+
+    if($resultado){
+        //header("Location: index.php");
+        echo "Entra a TRUE";
+    }else{
+        echo "Error";
+    }
     // Redireccionamos a Leer
     //header('Location: ./');
 }

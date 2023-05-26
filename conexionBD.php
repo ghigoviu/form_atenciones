@@ -1,15 +1,17 @@
 <?php
-// Variables
-$hostDB = '127.0.0.1';
-$nombreDB = 'atenciones';
-$usuarioDB = 'user';
-$contrasenyaDB = 'password';
-// Conecta con base de datos
-$hostPDO = "mysql:host=$hostDB;dbname=$nombreDB;";
-$miPDO = new PDO($hostPDO, $usuarioDB, $contrasenyaDB);
-// Prepara SELECT
-$miConsulta = $miPDO->prepare('SELECT * FROM atenciones;');
-// Ejecuta consulta
-$miConsulta->execute();
-
+    class Conexion{
+        public static function Conectar(){
+            define('servidor','localhost');
+            define('nombre_bd','atenciones');
+            define('usuario','user');
+            define('password','password');         
+            $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+            try{
+                $conexion = new PDO("mysql:host=".servidor.";dbname=".nombre_bd, usuario, password, $opciones);             
+                return $conexion; 
+            }catch (Exception $e){
+                die("El error de Conexión es :".$e->getMessage());
+            }         
+        }
+    }
 ?>
